@@ -229,6 +229,7 @@ class FileReaderClient():
                 plotti(crane_pos_x, crane_pos_y, 1, cargo_placed)
             except Exception as e:
                 log("plot process error")
+                sys.exit()
 
             #CRANE messages
             stamp_cfn1 = os.stat(self.cfn1).st_mtime
