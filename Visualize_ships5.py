@@ -46,10 +46,10 @@ DO_VERBOSE = False
 
 home = str(Path.home())
 print (home)
-crane_file_name = home + "/logs_folder/log_tttw11_mote_01_1.2.log"
+crane_file_name = home + "/log/log_b'tttw11_mote_01_1.1'.log"
 
 
-ship1_file_name = home + "/logs_folder/log_tttw11_mote_01_1.1.log"
+ship1_file_name = home + "/logs/log_tttw11_mote_01_1.1.log"
 ship2_file_name = home + "/logs_folder/log_tttw19_mote_19_2.1.log"
 ship3_file_name = home + "/logs_folder/log_tttw19_mote_19_2.2.log"
 
