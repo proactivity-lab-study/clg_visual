@@ -38,16 +38,20 @@ import time
 import traceback
 #import urllib2 #commented out 02.11.2021
 import numpy as np
+from pathlib import Path
 
 LOG_FILE      = "plotting.log" # Log file name, or None for no file logging
 DO_VERBOSE = False
 
-crane_file_name = "../logs_folder/log_tttw11_mote_01_1.2.log"
+
+home = str(Path.home())
+print (home)
+crane_file_name = home + "/logs_folder/log_tttw11_mote_01_1.2.log"
 
 
-ship1_file_name = "../logs_folder/log_tttw11_mote_01_1.1.log"
-ship2_file_name = "../logs_folder/log_tttw19_mote_19_2.1.log"
-ship3_file_name = "../logs_folder/log_tttw19_mote_19_2.2.log"
+ship1_file_name = home + "/logs_folder/log_tttw11_mote_01_1.1.log"
+ship2_file_name = home + "/logs_folder/log_tttw19_mote_19_2.1.log"
+ship3_file_name = home + "/logs_folder/log_tttw19_mote_19_2.2.log"
 
 last_line = "Cargo loading game"
 
