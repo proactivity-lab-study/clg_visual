@@ -24,19 +24,19 @@ import re
 
 import os
 import base64
-import cStringIO
+#import cStringIO #commented out 02.11.2021
 import datetime
 import json
 import os
-import Queue
+import queue
 import socket
 import subprocess
 import sys
-import thread
+import _thread
 import threading
 import time
 import traceback
-import urllib2
+#import urllib2 #commented out 02.11.2021
 import numpy as np
 
 LOG_FILE      = "plotting.log" # Log file name, or None for no file logging
@@ -151,14 +151,12 @@ def chunker(seq, size):
 
 
 def extract_data_from_incoming_packet(k, group):
-
-        print "start of extracting data "
         
         id = unpack("bbb", group)[0]
         pos_x = unpack("bbb", group)[1]
         pos_y = unpack("bbb", group)[2]
         
-        print id, pos_x, pos_y
+        print (id, pos_x, pos_y)
 
         #group_seq = group[1:]
         #sequence_numbers[k] = unpack("Ibbbbbbbb", group_seq)[0]
@@ -216,7 +214,7 @@ class FileReaderClient():
         global cargo_placed
 
 
-        print "def run has started"
+        print ("def run has started")
         f = open(self.cfn1, "r")
         lines = f.read().splitlines()
         f.close()
@@ -362,11 +360,11 @@ def process_data(data):
         #print "message from crane: " + str(id) + ", my new positsion is: " + str(pos_x) + " " + str(pos_y)
         for i in ships:
             if ships[i] == [crane_pos_x, crane_pos_y]:
-                print "CRANE IS ABOVE SHIP"
+                print ("CRANE IS ABOVE SHIP")
                 #print str(ships[i]) + " " + str(i)
 
         if cargo_placed:
-            print "ROUND won by ship: " + winners + "CARGO PLACED"
+            print ("ROUND won by ship: " + winners + "CARGO PLACED")
             crane_above_ship = 1
         else:
             #print "ROUND won by ship: " + winners + " CARGO not placed yet"
@@ -424,7 +422,7 @@ def process_data(data):
         
     #elif id == 2:
     elif msg[:8] == 'New ship':
-        print "New ship message received"
+        print ("New ship message received")
     
         ship_id, pos_x, pos_y, cargo, dTime = map(int, re.findall(r'\d+', msg))
     
@@ -451,8 +449,8 @@ def process_data(data):
         
         pos = gps_pos(pos_x,pos_y)
         crane_above_ship = 0
-        print "ship " + str(ship_id) + " has entered the game" + " Time left: " + str(dTime)
-        print "ship " + str(ship_id) + " position is: " + str(pos.x) + "-" + str(pos.y)
+        print ("ship " + str(ship_id) + " has entered the game" + " Time left: " + str(dTime))
+        print ("ship " + str(ship_id) + " position is: " + str(pos.x) + "-" + str(pos.y))
 
         
         ax.text(pos_x - 2, pos_y - 2, r'$'+str(ship_id)+'$', fontsize=12)
@@ -482,7 +480,7 @@ def process_data(data):
         plotti(pos.x, pos.y, list_of_ships.index(ship_id) + 2, crane_above_ship)
     #elif id == 3:
     elif msg[:9] == 'Game time':
-        print "Global time message received"
+        print ("Global time message received")
         gTime = map(int, re.findall(r'\d+', msg))
         """
         typedef nx_struct gTimeSerialMsg {
@@ -493,8 +491,8 @@ def process_data(data):
         """
         global_time = gTime
         crane_above_ship = 0
-        print "---------------------> NEW  GAME <---------------------"
-        print "global time is: " + str(global_time)                      
+        print ("---------------------> NEW  GAME <---------------------")
+        print ("global time is: " + str(global_time))                      
         
 
 
@@ -502,19 +500,19 @@ def process_data(data):
 
     #elif id == 111:
     elif msg[:9] == 'Crane com':
-        print "Crane command message received"
+        print ("Crane command message received")
         sender_id, command = map(int, re.findall(r'\d+', msg))
         
         if command == 1:
-            print "Ship " + str(sender_id) + " CRANE move UP"
+            print ("Ship " + str(sender_id) + " CRANE move UP")
         if command == 2:
-            print "Ship " + str(sender_id) + " CRANE move DOWN"
+            print ("Ship " + str(sender_id) + " CRANE move DOWN")
         if command == 3:
-            print "Ship " + str(sender_id) + " CRANE move LEFT"
+            print ("Ship " + str(sender_id) + " CRANE move LEFT")
         if command == 4:
-            print "Ship " + str(sender_id) + " CRANE move RIGHT"
+            print ("Ship " + str(sender_id) + " CRANE move RIGHT")
         if command == 5:
-            print "Ship " + str(sender_id) + " CRANE place CARGO"
+            print ("Ship " + str(sender_id) + " CRANE place CARGO")
 
     elif id == 112:
         sender_id = values[1]
